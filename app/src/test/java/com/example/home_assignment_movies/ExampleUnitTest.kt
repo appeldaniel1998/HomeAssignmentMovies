@@ -1,4 +1,4 @@
-package com.example.homeassignmentmovies
+package com.example.home_assignment_movies
 
 import org.junit.Test
 
