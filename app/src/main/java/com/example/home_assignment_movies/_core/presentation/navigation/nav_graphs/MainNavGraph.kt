@@ -16,7 +16,7 @@ fun MainNavGraph(
 ) {
     NavHost(navController = navController, startDestination = Screens.Home.route) {
         composable(route = Screens.Home.route) {
-            MoviesHomeUIScreen(navController = navController)
+            MoviesHomeUIScreen(navController = navController, scaffoldConfig = scaffoldConfig)
         }
     }
 }
