@@ -1,6 +1,5 @@
 package com.example.home_assignment_movies.movies_feature.presentation._movies_home
 
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
@@ -50,7 +50,7 @@ fun MoviesHomeUIScreen(
             id = 1,
             title = "3 Days in Malay",
             overview = "Marines stationed at an airfield in Malay during WWII get wind of a coming raid by the Japanese. Unable to get reinforcements approved, they engage in a harrowing 3-day battle against enemy forces.",
-            posterUri = Uri.parse("${RemoteConstants.IMAGE_BASE_URL}/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg"),
+            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg",
             releaseDate = LocalDate.now(),
             voteAverage = 4.9f
         ),
@@ -58,7 +58,7 @@ fun MoviesHomeUIScreen(
             id = 2,
             title = "Deadpool",
             overview = "The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
-            posterUri = Uri.parse("${RemoteConstants.IMAGE_BASE_URL}/3E53WEZJqP6aM84D8CckXx4pIHw.jpg"),
+            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
             releaseDate = LocalDate.now().minusYears(1),
             voteAverage = 2.0f
         ),
@@ -66,7 +66,7 @@ fun MoviesHomeUIScreen(
             id = 3,
             title = "My Spy The Eternal City",
             overview = "JJ, a veteran CIA agent, reunites with his protégé Sophie, in order to prevent a catastrophic nuclear plot targeting the Vatican.",
-            posterUri = Uri.parse("${RemoteConstants.IMAGE_BASE_URL}/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg"),
+            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg",
             releaseDate = LocalDate.now(),
             voteAverage = 3.0f
         ),
@@ -121,8 +121,8 @@ fun MoviesHomeUI(
                     .clickable { onItemClick(currMovie) }
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Image(
-                        painter = rememberAsyncImagePainter(currMovie.posterUri),
+                    AsyncImage(
+                        model = currMovie.posterUrl,
                         contentDescription = "${currMovie.title} poster",
                         modifier = Modifier
                             .clip(RoundedCornerShape(10.dp)),
@@ -164,38 +164,4 @@ fun MovieStatusComp(text: String) {
             style = MaterialTheme.typography.bodyMedium
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun MoviesHomePreview() {
-    val baseUrl = RemoteConstants.IMAGE_BASE_URL
-    MoviesHomeUI(
-        moviesList = listOf(
-            Movie(
-                id = 1,
-                title = "3 Days in Malay",
-                overview = "Marines stationed at an airfield in Malay during WWII get wind of a coming raid by the Japanese. Unable to get reinforcements approved, they engage in a harrowing 3-day battle against enemy forces.",
-                posterUri = Uri.parse("$baseUrl/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg"),
-                releaseDate = LocalDate.now(),
-                voteAverage = 4.9f
-            ),
-            Movie(
-                id = 2,
-                title = "Deadpool",
-                overview = "The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
-                posterUri = Uri.parse("$baseUrl/3E53WEZJqP6aM84D8CckXx4pIHw.jpg"),
-                releaseDate = LocalDate.now().minusYears(1),
-                voteAverage = 2.0f
-            ),
-            Movie(
-                id = 3,
-                title = "My Spy The Eternal City",
-                overview = "JJ, a veteran CIA agent, reunites with his protégé Sophie, in order to prevent a catastrophic nuclear plot targeting the Vatican.",
-                posterUri = Uri.parse("$baseUrl/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg"),
-                releaseDate = LocalDate.now(),
-                voteAverage = 3.0f
-            ),
-        )
-    )
 }

@@ -1,13 +1,11 @@
 package com.example.home_assignment_movies.movies_feature.presentation.movie_details
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
@@ -50,8 +48,8 @@ fun MovieDetailsUI(currMovie: Movie) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Image(
-            painter = rememberAsyncImagePainter(model = currMovie.posterUri),
+        AsyncImage(
+            model = currMovie.posterUrl,
             contentDescription = "${currMovie.title} Poster",
             modifier = Modifier.height(250.dp)
         )

@@ -1,14 +1,12 @@
 package com.example.home_assignment_movies._core.domain.models
 
-import android.net.Uri
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 
 data class Movie(
     val id: Int,
     val title: String,
     val overview: String,
-    val posterUri: Uri? = null,
+    val posterUrl: String,
     val releaseDate: LocalDate,
     val voteAverage: Float,
 ) {
