@@ -1,6 +1,10 @@
 package com.example.home_assignment_movies._core.presentation.navigation.nav_graphs
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
@@ -11,14 +15,21 @@ import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.presentation._movies_home.MoviesHomeUIScreen
 import com.example.home_assignment_movies.movies_feature.presentation.movie_details.MovieDetailsUIScreen
 import com.example.home_assignment_movies.movies_feature.presentation.saved_movies.SavedMoviesUIScreen
-import com.google.accompanist.navigation.animation.AnimatedNavHost
 
 @Composable
 fun MainNavGraph(
     navController: NavHostController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
 ) {
-    NavHost(navController = navController, startDestination = Screens.Home.route) {
+    NavHost(
+        navController = navController,
+        startDestination = Screens.Home.route,
+        enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(700)) },
+        exitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(700)) },
+        popEnterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(700)) },
+        popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(700)) }
+
+    ) {
         composable(route = Screens.Home.route) {
             MoviesHomeUIScreen(navController = navController, scaffoldConfig = scaffoldConfig)
         }
