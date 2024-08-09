@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
@@ -36,6 +35,7 @@ import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.domain.models.MovieStatus
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.data.remote.RemoteConstants
+import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.homeassignmentmovies.R
 import java.time.LocalDate
 
@@ -43,7 +43,7 @@ import java.time.LocalDate
 fun MoviesHomeUIScreen(
     navController: NavController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
-    viewModel: MoviesHomeViewModel = hiltViewModel()
+    viewModel: MoviesViewModel
 ) {
     LaunchedEffect(Unit) {
         scaffoldConfig.value = ScaffoldConfig(
