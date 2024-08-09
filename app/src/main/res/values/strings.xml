@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HomeAssignmentMovies</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="check_your_internet">Check your internet connection and try again</string>
 </resources>

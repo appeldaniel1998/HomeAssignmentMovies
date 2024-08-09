@@ -45,34 +45,34 @@ fun MoviesHomeUIScreen(
     scaffoldConfig: MutableState<ScaffoldConfig>,
     viewModel: MoviesViewModel
 ) {
-    val moviesList = listOf(
-        Movie(
-            id = 1,
-            title = "3 Days in Malay",
-            overview = "Marines stationed at an airfield in Malay during WWII get wind of a coming raid by the Japanese. Unable to get reinforcements approved, they engage in a harrowing 3-day battle against enemy forces.",
-            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg",
-            releaseDate = LocalDate.now(),
-            voteAverage = 4.9f
-        ),
-        Movie(
-            id = 2,
-            title = "Deadpool",
-            overview = "The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
-            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
-            releaseDate = LocalDate.now().minusYears(1),
-            voteAverage = 2.0f
-        ),
-        Movie(
-            id = 3,
-            title = "My Spy The Eternal City",
-            overview = "JJ, a veteran CIA agent, reunites with his protégé Sophie, in order to prevent a catastrophic nuclear plot targeting the Vatican.",
-            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg",
-            releaseDate = LocalDate.now(),
-            voteAverage = 3.0f
-        ),
-    )
-
-    viewModel.uiState.value = viewModel.uiState.value.copy(currentMovies = moviesList)
+//    val moviesList = listOf(
+//        Movie(
+//            id = 1,
+//            title = "3 Days in Malay",
+//            overview = "Marines stationed at an airfield in Malay during WWII get wind of a coming raid by the Japanese. Unable to get reinforcements approved, they engage in a harrowing 3-day battle against enemy forces.",
+//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg",
+//            releaseDate = LocalDate.now(),
+//            voteAverage = 4.9
+//        ),
+//        Movie(
+//            id = 2,
+//            title = "Deadpool",
+//            overview = "The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
+//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
+//            releaseDate = LocalDate.now().minusYears(1),
+//            voteAverage = 2.0
+//        ),
+//        Movie(
+//            id = 3,
+//            title = "My Spy The Eternal City",
+//            overview = "JJ, a veteran CIA agent, reunites with his protégé Sophie, in order to prevent a catastrophic nuclear plot targeting the Vatican.",
+//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg",
+//            releaseDate = LocalDate.now(),
+//            voteAverage = 3.0
+//        ),
+//    )
+//
+//    viewModel.uiState.value = viewModel.uiState.value.copy(currentMovies = moviesList)
 
 
     LaunchedEffect(Unit) {

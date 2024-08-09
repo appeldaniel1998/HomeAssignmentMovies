@@ -8,7 +8,7 @@ data class Movie(
     val overview: String,
     val posterUrl: String,
     val releaseDate: LocalDate,
-    val voteAverage: Float,
+    val voteAverage: Double,
 ) {
     /**
      * Returns the status of the movie based on its release date and vote average.

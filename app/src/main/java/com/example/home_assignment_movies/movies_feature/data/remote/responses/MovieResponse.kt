@@ -1,5 +1,8 @@
 package com.example.home_assignment_movies.movies_feature.data.remote.responses
 
+import com.example.home_assignment_movies._core.domain.models.Movie
+import com.example.home_assignment_movies._core.util.toDate
+import com.example.home_assignment_movies.movies_feature.data.remote.RemoteConstants
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(
@@ -17,4 +20,16 @@ data class MovieResponse(
     @SerializedName("video") val video: Boolean,
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
-)
+) {
+    fun toMovie(): Movie {
+        return Movie(
+            id = id,
+            title = title,
+            overview = overview,
+            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/$posterPath",
+            releaseDate = releaseDate.toDate(),
+            voteAverage = voteAverage,
+        )
+    }
+}
+
