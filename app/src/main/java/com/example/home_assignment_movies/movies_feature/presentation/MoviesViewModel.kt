@@ -14,7 +14,7 @@ class MoviesViewModel @Inject constructor() : ViewModel() {
     fun onEvent(event: MoviesHomeUIEvent) {
         when (event) {
             is MoviesHomeUIEvent.OnMovieClick -> {
-                event.navController.navigate(Screens.MovieDetails.route)
+                event.navController.navigate(Screens.MovieDetails.route + "/${event.movieId}")
             }
         }
     }

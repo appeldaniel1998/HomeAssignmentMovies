@@ -6,8 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.navigation.util.Screens
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.presentation._movies_home.MoviesHomeUIScreen
@@ -37,9 +40,18 @@ fun MainNavGraph(
             SavedMoviesUIScreen(navController = navController, scaffoldConfig = scaffoldConfig)
         }
 
-        composable(route = Screens.MovieDetails.route) {
+        composable(
+            route = Screens.MovieDetails.route + "/{movieId}",
+            arguments = listOf(
+                navArgument("movieId") {
+                    type = NavType.IntType
+                }
+            )
+
+        ) { backStackEntry ->
             val viewModel: MoviesViewModel = if (navController.previousBackStackEntry != null) hiltViewModel(navController.previousBackStackEntry!!) else hiltViewModel()
-            MovieDetailsUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, viewModel = viewModel)
+            val movieId = backStackEntry.arguments?.getInt("movieId")
+            MovieDetailsUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, movieId = movieId!!, viewModel = viewModel)
         }
     }
 }

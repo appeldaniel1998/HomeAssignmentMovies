@@ -45,21 +45,6 @@ fun MoviesHomeUIScreen(
     scaffoldConfig: MutableState<ScaffoldConfig>,
     viewModel: MoviesViewModel
 ) {
-    LaunchedEffect(Unit) {
-        scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = "Home"
-        )
-    }
-    MoviesHomeUI() {
-        viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it, navController))
-    }
-}
-
-@Composable
-fun MoviesHomeUI(
-    moviesList: List<Movie> = emptyList(),
-    onItemClick: (Movie) -> Unit = {}
-) {
     val moviesList = listOf(
         Movie(
             id = 1,
@@ -87,6 +72,24 @@ fun MoviesHomeUI(
         ),
     )
 
+    viewModel.uiState.value = viewModel.uiState.value.copy(currentMovies = moviesList)
+
+
+    LaunchedEffect(Unit) {
+        scaffoldConfig.value = ScaffoldConfig(
+            topAppBarTitle = "Home"
+        )
+    }
+    MoviesHomeUI(moviesList = viewModel.uiState.value.currentMovies) {
+        viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+    }
+}
+
+@Composable
+fun MoviesHomeUI(
+    moviesList: List<Movie> = emptyList(),
+    onItemClick: (Movie) -> Unit = {}
+) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(R.drawable.tmdblogo)
