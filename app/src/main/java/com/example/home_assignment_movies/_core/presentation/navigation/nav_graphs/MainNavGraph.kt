@@ -42,7 +42,4 @@ fun MainNavGraph(
             MovieDetailsUIScreen(navController = navController, scaffoldConfig = scaffoldConfig)
         }
     }
-//    NavHost(navController = navController, startDestination = Screens.Home.route) {
-//
-//    }
 }
