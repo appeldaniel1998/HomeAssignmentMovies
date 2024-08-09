@@ -61,7 +61,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation (libs.accompanist.navigation.animation)
     implementation(libs.coil.compose) // Coil-Compose for loading images in Compose.
+    implementation(libs.coil.svg)
 
     // Dagger - Hilt dependency injection
     // Setup doc - https://dagger.dev/hilt/gradle-setup
