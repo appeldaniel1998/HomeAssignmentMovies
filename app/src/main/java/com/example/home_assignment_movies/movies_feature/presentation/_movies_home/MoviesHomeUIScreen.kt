@@ -12,19 +12,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -34,10 +36,9 @@ import coil.request.ImageRequest
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.domain.models.MovieStatus
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
-import com.example.home_assignment_movies.movies_feature.data.remote.RemoteConstants
+import com.example.home_assignment_movies._core.util.isScrolledToTheEnd
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.homeassignmentmovies.R
-import java.time.LocalDate
 
 @Composable
 fun MoviesHomeUIScreen(
@@ -45,66 +46,53 @@ fun MoviesHomeUIScreen(
     scaffoldConfig: MutableState<ScaffoldConfig>,
     viewModel: MoviesViewModel
 ) {
-//    val moviesList = listOf(
-//        Movie(
-//            id = 1,
-//            title = "3 Days in Malay",
-//            overview = "Marines stationed at an airfield in Malay during WWII get wind of a coming raid by the Japanese. Unable to get reinforcements approved, they engage in a harrowing 3-day battle against enemy forces.",
-//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/hqnfqeCILvgKGWKOut5lVdxdeJh.jpg",
-//            releaseDate = LocalDate.now(),
-//            voteAverage = 4.9
-//        ),
-//        Movie(
-//            id = 2,
-//            title = "Deadpool",
-//            overview = "The origin story of former Special Forces operative turned mercenary Wade Wilson, who, after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
-//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
-//            releaseDate = LocalDate.now().minusYears(1),
-//            voteAverage = 2.0
-//        ),
-//        Movie(
-//            id = 3,
-//            title = "My Spy The Eternal City",
-//            overview = "JJ, a veteran CIA agent, reunites with his protégé Sophie, in order to prevent a catastrophic nuclear plot targeting the Vatican.",
-//            posterUrl = "${RemoteConstants.IMAGE_BASE_URL}/Bf3vCfM94bSJ1saZlyi0UW0e0U.jpg",
-//            releaseDate = LocalDate.now(),
-//            voteAverage = 3.0
-//        ),
-//    )
-//
-//    viewModel.uiState.value = viewModel.uiState.value.copy(currentMovies = moviesList)
-
-
     LaunchedEffect(Unit) {
         scaffoldConfig.value = ScaffoldConfig(
             topAppBarTitle = "Home"
         )
     }
-    MoviesHomeUI(moviesList = viewModel.uiState.value.currentMovies) {
-        viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+    Box(modifier = Modifier.fillMaxSize()) {
+        MoviesHomeUI(
+            moviesList = viewModel.uiState.value.currentMovies,
+            onItemClick = {
+                viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+            },
+            onLastItemReached = {
+                if (!viewModel.uiState.value.isLoading) {
+                    viewModel.onEvent(MoviesHomeUIEvent.OnLastItemReached)
+                }
+            }
+        )
+
+        if (viewModel.uiState.value.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Center)
+            )
+        }
     }
 }
 
 @Composable
 fun MoviesHomeUI(
     moviesList: List<Movie> = emptyList(),
-    onItemClick: (Movie) -> Unit = {}
+    onItemClick: (Movie) -> Unit = {},
+    onLastItemReached: () -> Unit = {}
 ) {
-    val painter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(R.drawable.tmdblogo)
-            .decoderFactory(SvgDecoder.Factory())
-            .build()
-    )
-
+    val lazyListState = rememberLazyListState()
     LazyColumn(
+        state = lazyListState,
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
             Image(
-                painter = painter,
+                painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(R.drawable.tmdblogo)
+                        .decoderFactory(SvgDecoder.Factory())
+                        .build()
+                ),
                 contentDescription = "TMDB Logo",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,6 +101,10 @@ fun MoviesHomeUI(
             )
         }
         items(moviesList.size) { index ->
+            if (lazyListState.isScrolledToTheEnd()) { // Check if the list is scrolled to the end, then call onLastItemReached (which loads more movies)
+                onLastItemReached()
+            }
+
             val currMovie = moviesList[index]
             Card(
                 modifier = Modifier
