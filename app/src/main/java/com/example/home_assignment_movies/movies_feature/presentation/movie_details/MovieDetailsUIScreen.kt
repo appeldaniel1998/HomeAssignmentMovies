@@ -28,13 +28,14 @@ fun MovieDetailsUIScreen(
     movieId: Int,
     viewModel: MoviesViewModel
 ) {
+    val currMovie = viewModel.uiState.value.currentMovies.find { it.id == movieId }
+
     LaunchedEffect(Unit) {
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = "Home"
+            topAppBarTitle = currMovie?.title ?: "Movie Details"
         )
     }
 
-    val currMovie = viewModel.uiState.value.currentMovies.find { it.id == movieId }
     if (currMovie != null) {
         MovieDetailsUI(currMovie)
     }
@@ -79,5 +80,4 @@ fun MovieDetailsUI(currMovie: Movie) {
             modifier = Modifier.align(Alignment.Start)
         )
     }
-
 }
