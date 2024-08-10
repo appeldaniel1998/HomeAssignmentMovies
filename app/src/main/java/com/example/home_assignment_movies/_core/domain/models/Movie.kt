@@ -1,7 +1,9 @@
 package com.example.home_assignment_movies._core.domain.models
 
+import androidx.compose.runtime.Immutable
 import java.time.LocalDate
 
+@Immutable
 data class Movie(
     val id: Int,
     val title: String,
