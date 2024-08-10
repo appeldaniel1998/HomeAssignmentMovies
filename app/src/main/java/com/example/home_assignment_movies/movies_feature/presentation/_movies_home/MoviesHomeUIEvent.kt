@@ -5,5 +5,7 @@ import com.example.home_assignment_movies._core.domain.models.Movie
 
 sealed class MoviesHomeUIEvent {
     data class OnMovieClick(val movieId: Int, val navController: NavController): MoviesHomeUIEvent()
+    class OnFavouriteClick(val movie: Movie) : MoviesHomeUIEvent()
+
     data object OnLastItemReached: MoviesHomeUIEvent()
 }

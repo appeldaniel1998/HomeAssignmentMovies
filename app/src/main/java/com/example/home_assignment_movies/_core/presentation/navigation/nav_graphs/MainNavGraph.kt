@@ -23,6 +23,9 @@ fun MainNavGraph(
     navController: NavHostController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
 ) {
+    val viewModel: MoviesViewModel = hiltViewModel() // This vieModel is used in the three screens below, and is passed as a parameter to each of them
+    // it is a shared viewModel between the three screens because it uses the same data (movie list) to reduce the amount of data transfers and http requests
+
     NavHost(
         navController = navController,
         startDestination = Screens.Home.route,
@@ -31,13 +34,12 @@ fun MainNavGraph(
         popEnterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(700)) },
         popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(700)) }
     ) {
-        composable(route = Screens.Home.route) { backStackEntry ->
-            val viewModel: MoviesViewModel = hiltViewModel(backStackEntry)
+        composable(route = Screens.Home.route) {
             MoviesHomeUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, viewModel = viewModel)
         }
 
         composable(route = Screens.SavedMovies.route) {
-            SavedMoviesUIScreen(navController = navController, scaffoldConfig = scaffoldConfig)
+            SavedMoviesUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, viewModel = viewModel)
         }
 
         composable(
@@ -49,7 +51,6 @@ fun MainNavGraph(
             )
 
         ) { backStackEntry ->
-            val viewModel: MoviesViewModel = if (navController.previousBackStackEntry != null) hiltViewModel(navController.previousBackStackEntry!!) else hiltViewModel()
             val movieId = backStackEntry.arguments?.getInt("movieId")
             MovieDetailsUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, movieId = movieId!!, viewModel = viewModel)
         }

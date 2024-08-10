@@ -1,9 +1,12 @@
 package com.example.home_assignment_movies.movies_feature.presentation.movie_details
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -20,6 +23,7 @@ import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
+import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
 
 @Composable
 fun MovieDetailsUIScreen(
@@ -28,56 +32,71 @@ fun MovieDetailsUIScreen(
     movieId: Int,
     viewModel: MoviesViewModel
 ) {
-    val currMovie = viewModel.uiState.value.currentMovies.find { it.id == movieId }
-
     LaunchedEffect(Unit) {
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = currMovie?.title ?: "Movie Details"
+            topAppBarTitle = "Movie Details"
         )
     }
 
+    val currMovie = viewModel.uiState.value.currentMovies.find { it.id == movieId }
+
     if (currMovie != null) {
-        MovieDetailsUI(currMovie)
+        MovieDetailsUI(currMovie) {
+            viewModel.onEvent(MovieDetailsUIEvent.OnFavouriteClick(it))
+        }
     }
 }
 
 @Composable
-fun MovieDetailsUI(currMovie: Movie) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        AsyncImage(
-            model = currMovie.posterUrl,
-            contentDescription = "${currMovie.title} Poster",
-            modifier = Modifier.height(250.dp)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "${currMovie.title} (${currMovie.releaseDate.year})",
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Text(
-            text = "Rating: ${currMovie.voteAverage}",
-            fontSize = 18.sp
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Overview",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.Start)
+fun MovieDetailsUI(
+    currMovie: Movie,
+    onFavouriteClick: (Movie) -> Unit = {}
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            AsyncImage(
+                model = currMovie.posterUrl,
+                contentDescription = "${currMovie.title} Poster",
+                modifier = Modifier.height(250.dp)
             )
-        Text(
-            text = currMovie.overview,
-            modifier = Modifier.align(Alignment.Start)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "${currMovie.title} (${currMovie.releaseDate.year})",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = "Rating: ${currMovie.voteAverage}",
+                fontSize = 18.sp
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Overview",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.Start)
+            )
+            Text(
+                text = currMovie.overview,
+                modifier = Modifier.align(Alignment.Start)
+            )
+        }
+
+        FavouriteIcon(
+            currMovie = currMovie,
+            onFavouriteClick = onFavouriteClick,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .size(50.dp)
         )
     }
 }
