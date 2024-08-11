@@ -1,4 +1,4 @@
-package com.example.home_assignment_movies.movies_feature.presentation.components
+package com.example.home_assignment_movies._core.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

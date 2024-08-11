@@ -26,7 +26,7 @@ import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies._core.presentation.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
-import com.example.home_assignment_movies.movies_feature.presentation.components.YouTubePlayerComp
+import com.example.home_assignment_movies._core.presentation.components.YouTubePlayerComp
 import com.example.homeassignmentmovies.R
 
 /**
