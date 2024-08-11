@@ -20,8 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
@@ -42,7 +40,8 @@ fun MovieDetailsUIScreen(
 ) {
     LaunchedEffect(Unit) { // Set up of the scaffold configuration
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = UiText.StringResource(R.string.movie_details)
+            topAppBarTitle = UiText.StringResource(R.string.movie_details),
+            showBackButton = true
         )
     }
 
