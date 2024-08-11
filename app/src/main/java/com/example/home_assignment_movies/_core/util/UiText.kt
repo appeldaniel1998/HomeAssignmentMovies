@@ -1,6 +1,7 @@
 package com.example.home_assignment_movies._core.util
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.homeassignmentmovies.R
@@ -11,15 +12,15 @@ import com.example.homeassignmentmovies.R
  */
 sealed class UiText {
     data class DynamicString(val value: String) : UiText()
-    data class StringResource(@androidx.annotation.StringRes val id: Int) : UiText()
+    data class StringResource(@StringRes val id: Int) : UiText()
 
     companion object {
         /**
          * A default error message, used when an unknown error occurs.
          */
-        fun unknownError(): UiText {
-            return StringResource(R.string.unknown_error)
-        }
+        val unknownError = StringResource(R.string.unknown_error)
+
+        val Empty = DynamicString("")
     }
 
     fun asString(context: Context): String {

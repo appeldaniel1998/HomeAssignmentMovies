@@ -11,9 +11,11 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
+import com.example.home_assignment_movies._core.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation._movies_home.MoviesHomeUIEvent
 import com.example.home_assignment_movies.movies_feature.presentation.components.MoviesListUI
+import com.example.homeassignmentmovies.R
 
 /**
  * Saved Movies UI Screen (persistent for the current session)
@@ -26,7 +28,7 @@ fun SavedMoviesUIScreen(
 ) {
     LaunchedEffect(Unit) { // Set up of the scaffold
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = "Saved Movies"
+            topAppBarTitle = UiText.StringResource(R.string.saved_movies)
         )
     }
     MoviesListUI( // Display the saved movies

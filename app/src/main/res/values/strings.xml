@@ -2,4 +2,15 @@
     <string name="app_name">HomeAssignmentMovies</string>
     <string name="unknown_error">Unknown error</string>
     <string name="check_your_internet">Check your internet connection and try again</string>
+    <string name="home">Home</string>
+    <string name="saved_movies">Saved Movies</string>
+    <string name="back">Back</string>
+    <string name="favorite">Favorite</string>
+    <string name="poster">%1$s poster</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="rating">Rating: %1$s</string>
+    <string name="overview">Overview</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.example.home_assignment_movies._core.presentation.util
 
+import com.example.home_assignment_movies._core.util.UiText
+
 /**
  * Represents the configuration of a Scaffold.
  * @param topAppBarTitle The title of the top app bar.
  * @param showBackButton Whether to show the back button in the top app bar.
  */
 data class ScaffoldConfig(
-    val topAppBarTitle: String = "",
+    val topAppBarTitle: UiText = UiText.Empty,
     val showBackButton: Boolean = false
 )

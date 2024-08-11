@@ -8,10 +8,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
+import com.example.home_assignment_movies._core.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.MoviesListUI
+import com.example.homeassignmentmovies.R
 
 @Composable
 fun MoviesHomeUIScreen(
@@ -21,7 +24,7 @@ fun MoviesHomeUIScreen(
 ) {
     LaunchedEffect(Unit) { // Set up of the scaffold
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = "Home"
+            topAppBarTitle = UiText.StringResource(R.string.home),
         )
     }
 

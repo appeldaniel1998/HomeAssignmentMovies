@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +31,7 @@ import com.example.home_assignment_movies._core.presentation.navigation.util.Bot
 import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldUIEvent
 import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldViewModel
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
+import com.example.homeassignmentmovies.R
 
 /**
  * A standard scaffold that contains a top app bar, a bottom navigation bar, and a snackbar host.
@@ -57,8 +59,8 @@ fun StandardScaffold(
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Icon(imageVector = item.icon, contentDescription = item.title)
-                                Text(text = item.title, fontSize = 12.sp)
+                                Icon(imageVector = item.icon, contentDescription = item.title.asString())
+                                Text(text = item.title.asString(), fontSize = 12.sp)
                             }
                         }
                     )
@@ -69,14 +71,14 @@ fun StandardScaffold(
             TopAppBar(
                 title = {
                     Text(
-                        text = scaffoldConfig.value.topAppBarTitle,
+                        text = scaffoldConfig.value.topAppBarTitle.asString(),
                         modifier = Modifier.padding(start = 12.dp)
                     )
                 },
                 navigationIcon = {
                     if (scaffoldConfig.value.showBackButton) {
                         IconButton(onClick = { viewModel.onEvent(ScaffoldUIEvent.OnBackPress(navController)) }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                         }
                     }
                 }

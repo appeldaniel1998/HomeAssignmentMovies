@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -93,7 +94,7 @@ fun MoviesListUI(
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) { // Box for the movie poster
                     AsyncImage(
                         model = currMovie.posterUrl,
-                        contentDescription = "${currMovie.title} poster",
+                        contentDescription = stringResource(R.string.poster, currMovie.title),
                         modifier = Modifier
                             .clip(RoundedCornerShape(10.dp)),
                         alignment = Center
@@ -106,13 +107,13 @@ fun MoviesListUI(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         if (movieStatusList.value.contains(MovieStatus.TOP_RATED)) {
-                            MovieStatusComp("Top Rated")
+                            MovieStatusComp(stringResource(R.string.top_rated))
                         }
                         if (movieStatusList.value.contains(MovieStatus.NOW_PLAYING)) {
-                            MovieStatusComp("Now Playing")
+                            MovieStatusComp(stringResource(R.string.now_playing))
                         }
                         if (movieStatusList.value.contains(MovieStatus.UPCOMING)) {
-                            MovieStatusComp("Upcoming")
+                            MovieStatusComp(stringResource(R.string.upcoming))
                         }
                     }
 

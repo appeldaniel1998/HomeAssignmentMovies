@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,8 +23,10 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
+import com.example.home_assignment_movies._core.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
+import com.example.homeassignmentmovies.R
 
 /**
  * Represents the UI of the Movie Details screen.
@@ -36,7 +39,7 @@ fun MovieDetailsUIScreen(
 ) {
     LaunchedEffect(Unit) { // Set up of the scaffold configuration
         scaffoldConfig.value = ScaffoldConfig(
-            topAppBarTitle = "Movie Details"
+            topAppBarTitle = UiText.StringResource(R.string.movie_details)
         )
     }
 
@@ -66,7 +69,7 @@ fun MovieDetailsUI(
         ) {
             AsyncImage( // Display the movie poster
                 model = currMovie.posterUrl,
-                contentDescription = "${currMovie.title} Poster",
+                contentDescription = stringResource(R.string.poster, currMovie.title),
                 modifier = Modifier.height(250.dp)
             )
 
@@ -79,14 +82,14 @@ fun MovieDetailsUI(
             )
 
             Text( // Display the movie rating
-                text = "Rating: ${currMovie.voteAverage}",
+                text = stringResource(R.string.rating, currMovie.voteAverage),
                 fontSize = 18.sp
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text( // Display the movie overview title
-                text = "Overview",
+                text = stringResource(R.string.overview),
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Start)
             )

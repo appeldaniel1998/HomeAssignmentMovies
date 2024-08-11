@@ -16,7 +16,7 @@ class GetMoviesUseCase(
     suspend operator fun invoke(page: Int): Resource<List<Movie>> {
         return when (val result = repository.getMoviesList(page)) {
             is Resource.Success -> Resource.Success(result.data!!)
-            is Resource.Error -> Resource.Error(result.uiText ?: UiText.unknownError())
+            is Resource.Error -> Resource.Error(result.uiText ?: UiText.unknownError)
         }
     }
 }
