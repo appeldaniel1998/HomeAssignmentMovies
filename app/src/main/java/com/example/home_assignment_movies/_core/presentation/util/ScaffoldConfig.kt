@@ -1,7 +1,5 @@
 package com.example.home_assignment_movies._core.presentation.util
 
-import com.example.home_assignment_movies._core.util.UiText
-
 /**
  * Represents the configuration of a Scaffold.
  * @param topAppBarTitle The title of the top app bar.

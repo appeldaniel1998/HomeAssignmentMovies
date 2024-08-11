@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     scaffoldConfig = scaffoldConfig,
                     snackbarHostState = snackbarHostState
                 ) {
-                    MainNavGraph(navController = navController, scaffoldConfig = scaffoldConfig)
+                    MainNavGraph(navController = navController, scaffoldConfig = scaffoldConfig, snackbarHostState = snackbarHostState)
                 }
             }
         }

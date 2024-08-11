@@ -2,6 +2,7 @@ package com.example.home_assignment_movies._core.presentation.navigation.nav_gra
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +27,7 @@ import com.example.home_assignment_movies.movies_feature.presentation.saved_movi
 fun MainNavGraph(
     navController: NavHostController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
+    snackbarHostState: SnackbarHostState
 ) {
     val viewModel: MoviesViewModel = hiltViewModel() // This vieModel is used in the three screens below, and is passed as a parameter to each of them
     // it is a shared viewModel between the three screens because it uses the same data (movie list) to reduce the amount of data transfers and http requests
@@ -39,7 +41,7 @@ fun MainNavGraph(
         popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(700)) }
     ) {
         composable(route = Screens.Home.route) {
-            MoviesHomeUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, viewModel = viewModel)
+            MoviesHomeUIScreen(navController = navController, scaffoldConfig = scaffoldConfig, snackbarHostState = snackbarHostState, viewModel = viewModel)
         }
 
         composable(route = Screens.SavedMovies.route) {

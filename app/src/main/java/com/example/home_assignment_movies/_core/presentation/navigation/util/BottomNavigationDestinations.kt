@@ -3,8 +3,7 @@ package com.example.home_assignment_movies._core.presentation.navigation.util
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.ui.res.stringResource
-import com.example.home_assignment_movies._core.util.UiText
+import com.example.home_assignment_movies._core.presentation.util.UiText
 import com.example.homeassignmentmovies.R
 
 /**

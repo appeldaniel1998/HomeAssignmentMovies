@@ -1,4 +1,4 @@
-package com.example.home_assignment_movies._core.util
+package com.example.home_assignment_movies._core.presentation.util
 
 import android.content.Context
 import androidx.annotation.StringRes

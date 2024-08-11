@@ -1,5 +1,7 @@
 package com.example.home_assignment_movies._core.util
 
+import com.example.home_assignment_movies._core.presentation.util.UiText
+
 typealias SimpleResource = Resource<Unit> // A simple resource that doesn't hold any data
 
 /**

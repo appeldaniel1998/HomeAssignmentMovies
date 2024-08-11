@@ -2,7 +2,7 @@ package com.example.home_assignment_movies.movies_feature.data
 
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.util.Resource
-import com.example.home_assignment_movies._core.util.UiText
+import com.example.home_assignment_movies._core.presentation.util.UiText
 import com.example.home_assignment_movies.movies_feature.data.remote.MoviesAPI
 import com.example.home_assignment_movies.movies_feature.domain.MoviesRepository
 import com.example.homeassignmentmovies.R

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
-import com.example.home_assignment_movies._core.util.UiText
+import com.example.home_assignment_movies._core.presentation.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
 import com.example.home_assignment_movies.movies_feature.presentation.components.YouTubePlayerComp

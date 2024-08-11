@@ -1,7 +1,7 @@
 package com.example.home_assignment_movies.movies_feature.domain.use_cases
 
 import com.example.home_assignment_movies._core.util.Resource
-import com.example.home_assignment_movies._core.util.UiText
+import com.example.home_assignment_movies._core.presentation.util.UiText
 import com.example.home_assignment_movies.movies_feature.domain.MoviesRepository
 
 class GetTrailerUseCase(
