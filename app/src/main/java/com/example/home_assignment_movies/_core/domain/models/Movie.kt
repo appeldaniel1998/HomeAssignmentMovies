@@ -21,6 +21,7 @@ data class Movie(
     val posterUrl: String,
     val releaseDate: LocalDate,
     val voteAverage: Double,
+    var trailerKey: String? = null,
     val isSaved: Boolean = false
 ) {
     /**

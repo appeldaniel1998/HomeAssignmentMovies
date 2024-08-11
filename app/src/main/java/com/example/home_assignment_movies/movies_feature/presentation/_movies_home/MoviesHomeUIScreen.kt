@@ -32,7 +32,7 @@ fun MoviesHomeUIScreen(
         MoviesListUI( // Display the movies list
             moviesList = viewModel.uiState.value.currentMovies,
             onItemClick = {
-                viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+                viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it, navController))
             },
             onLastItemReached = {
                 if (!viewModel.uiState.value.isLoading) {

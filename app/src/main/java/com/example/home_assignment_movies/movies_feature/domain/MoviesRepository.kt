@@ -8,4 +8,5 @@ import com.example.home_assignment_movies._core.util.Resource
  */
 interface MoviesRepository {
     suspend fun getMoviesList(page: Int): Resource<List<Movie>>
+    suspend fun getTrailerForMovie(movieId: Int): Resource<String>
 }

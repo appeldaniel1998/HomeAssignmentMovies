@@ -13,4 +13,5 @@
     <string name="movie_details">Movie Details</string>
     <string name="rating">Rating: %1$s</string>
     <string name="overview">Overview</string>
+    <string name="no_trailer_found">No trailer was found for this movie</string>
 </resources>

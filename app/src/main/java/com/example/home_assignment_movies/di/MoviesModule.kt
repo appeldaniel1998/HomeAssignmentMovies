@@ -5,6 +5,7 @@ import com.example.home_assignment_movies.movies_feature.data.remote.MoviesAPI
 import com.example.home_assignment_movies.movies_feature.data.remote.RemoteConstants
 import com.example.home_assignment_movies.movies_feature.domain.MoviesRepository
 import com.example.home_assignment_movies.movies_feature.domain.use_cases.GetMoviesUseCase
+import com.example.home_assignment_movies.movies_feature.domain.use_cases.GetTrailerUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,5 +40,11 @@ object MoviesModule {
     @Singleton
     fun provideGetMoviesUseCase(repository: MoviesRepository): GetMoviesUseCase {
         return GetMoviesUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetTrailerUseCase(repository: MoviesRepository): GetTrailerUseCase {
+        return GetTrailerUseCase(repository)
     }
 }

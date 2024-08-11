@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.home_assignment_movies._core.presentation.navigation.util.Screens
 import com.example.home_assignment_movies.movies_feature.domain.use_cases.GetMoviesUseCase
+import com.example.home_assignment_movies.movies_feature.domain.use_cases.GetTrailerUseCase
 import com.example.home_assignment_movies.movies_feature.presentation._movies_home.MoviesHomeUIEvent
 import com.example.home_assignment_movies.movies_feature.presentation.movie_details.MovieDetailsUIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    private val getMoviesUseCase: GetMoviesUseCase
+    private val getMoviesUseCase: GetMoviesUseCase,
+    private val getTrailerUseCase: GetTrailerUseCase
 ) : ViewModel() {
     val uiState = mutableStateOf(MoviesUIState()) // Initial state
     private var debounceFlag = false // Flag to prevent multiple loads
@@ -44,7 +46,13 @@ class MoviesViewModel @Inject constructor(
     fun onEvent(event: MoviesHomeUIEvent) {
         when (event) {
             is MoviesHomeUIEvent.OnMovieClick -> {
-                event.navController.navigate(Screens.MovieDetails.route + "/${event.movieId}")
+                event.navController.navigate(Screens.MovieDetails.route + "/${event.movie.id}")
+                viewModelScope.launch {
+                    val trailerKeyResource = getTrailerUseCase(event.movie.id)
+                    if (trailerKeyResource.data != null) {
+                        event.movie.trailerKey = trailerKeyResource.data
+                    }
+                }
             }
 
             MoviesHomeUIEvent.OnLastItemReached -> {

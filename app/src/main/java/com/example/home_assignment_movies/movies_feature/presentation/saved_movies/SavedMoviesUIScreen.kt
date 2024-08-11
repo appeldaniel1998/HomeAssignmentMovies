@@ -34,7 +34,7 @@ fun SavedMoviesUIScreen(
     MoviesListUI( // Display the saved movies
         moviesList = viewModel.uiState.value.currentMovies.filter { it.isSaved },
         onItemClick = {
-            viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+            viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it, navController))
         },
         onFavouriteClick = {
             viewModel.onEvent(MoviesHomeUIEvent.OnFavouriteClick(it))

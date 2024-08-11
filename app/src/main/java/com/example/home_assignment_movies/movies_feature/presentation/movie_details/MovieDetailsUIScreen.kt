@@ -15,10 +15,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.home_assignment_movies._core.domain.models.Movie
@@ -26,6 +28,7 @@ import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies._core.util.UiText
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
+import com.example.home_assignment_movies.movies_feature.presentation.components.YouTubePlayerComp
 import com.example.homeassignmentmovies.R
 
 /**
@@ -97,6 +100,13 @@ fun MovieDetailsUI(
                 text = currMovie.overview,
                 modifier = Modifier.align(Alignment.Start)
             )
+
+            if (currMovie.trailerKey != null) { // Display the movie trailer
+                YouTubePlayerComp(
+                    youTubeVideoId = currMovie.trailerKey ?: "",
+                    lifecycleOwner = LocalLifecycleOwner.current
+                )
+            }
         }
 
         FavouriteIcon( // Display the favourite icon

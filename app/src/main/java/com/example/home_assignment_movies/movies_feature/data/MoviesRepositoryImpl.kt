@@ -28,4 +28,19 @@ class MoviesRepositoryImpl(
             Resource.Error(UiText.StringResource(R.string.check_your_internet))
         }
     }
+
+    override suspend fun getTrailerForMovie(movieId: Int): Resource<String> {
+        return try {
+            val videoListResponse = api.getMovieVideos(movieId)
+            val videos = videoListResponse.results
+            val trailer = videos.find { it.type == "Trailer" && it.site == "YouTube" && it.official }
+            if (trailer != null) {
+                Resource.Success(trailer.key)
+            } else {
+                Resource.Error(UiText.StringResource(R.string.no_trailer_found))
+            }
+        } catch (e: Exception) {
+            Resource.Error(UiText.StringResource(R.string.check_your_internet))
+        }
+    }
 }

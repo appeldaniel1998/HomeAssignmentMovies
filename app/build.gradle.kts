@@ -65,6 +65,7 @@ dependencies {
     implementation (libs.accompanist.navigation.animation)
     implementation(libs.coil.compose) // Coil-Compose for loading images in Compose.
     implementation(libs.coil.svg)
+    implementation(libs.androidYoutubePlayer) // YouTube player
 
     // Dagger - Hilt dependency injection
     // Setup doc - https://dagger.dev/hilt/gradle-setup
