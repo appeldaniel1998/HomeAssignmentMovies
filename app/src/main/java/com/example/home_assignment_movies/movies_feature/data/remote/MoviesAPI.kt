@@ -7,6 +7,9 @@ import retrofit2.http.Query
 
 interface MoviesAPI {
 
+    /**
+     * Get a list of movies from the API.
+     */
     @GET("discover/movie")
     suspend fun getMoviesList(
         @Query("include_adult") includeAdult: Boolean = false,

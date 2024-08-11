@@ -38,6 +38,13 @@ import com.example.home_assignment_movies._core.domain.models.MovieStatus
 import com.example.home_assignment_movies._core.util.isScrolledToTheEnd
 import com.example.homeassignmentmovies.R
 
+/**
+ * UI for displaying a list of movies
+ * @param moviesList List of movies to display
+ * @param onItemClick Function to call when a movie is clicked
+ * @param onLastItemReached Function to call when the end of the list is (almost) reached
+ * @param onFavouriteClick Function to call when the favourite icon is clicked
+ */
 @Composable
 fun MoviesListUI(
     moviesList: List<Movie> = emptyList(),
@@ -46,6 +53,7 @@ fun MoviesListUI(
     onFavouriteClick: (Movie) -> Unit = {}
 ) {
     val lazyListState = rememberLazyListState()
+
     LazyColumn(
         state = lazyListState,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,7 +61,7 @@ fun MoviesListUI(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            Image(
+            Image( // TMDB logo
                 painter = rememberAsyncImagePainter(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(R.drawable.tmdblogo)
@@ -67,53 +75,48 @@ fun MoviesListUI(
                     .height(50.dp)
             )
         }
-        items(
+        items( // Display the movies
             items = moviesList,
             key = { movie -> movie.id }
         ) { currMovie ->
-
-            val isAtEnd = remember {
-                derivedStateOf { lazyListState.isScrolledToTheEnd() }
-            }
-            if (isAtEnd.value) { // Check if the list is scrolled to the end, then call onLastItemReached (which loads more movies)
+            val isAtEnd = remember { derivedStateOf { lazyListState.isScrolledToTheEnd() } }
+            if (isAtEnd.value) { // Check if the list is scrolled (almost) to the end, then call onLastItemReached (which loads more movies)
                 onLastItemReached()
             }
 
-            Card(
+            Card( // Movie card
                 modifier = Modifier
                     .height(400.dp)
                     .fillMaxWidth()
                     .clickable { onItemClick(currMovie) }
             ) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) { // Box for the movie poster
                     AsyncImage(
                         model = currMovie.posterUrl,
                         contentDescription = "${currMovie.title} poster",
                         modifier = Modifier
                             .clip(RoundedCornerShape(10.dp)),
-                        alignment = Alignment.Center
+                        alignment = Center
                     )
 
-                    val movieStatusList = remember(currMovie) {
-                        derivedStateOf { currMovie.getStatus() }
-                    }.value
+                    val movieStatusList = remember(currMovie) { derivedStateOf { currMovie.getStatus() } } // Get the movie status list
 
-                    Row(
+                    Row( // Row for the movie status
                         modifier = Modifier.align(Alignment.TopStart),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        if (movieStatusList.contains(MovieStatus.TOP_RATED)) {
+                        if (movieStatusList.value.contains(MovieStatus.TOP_RATED)) {
                             MovieStatusComp("Top Rated")
                         }
-                        if (movieStatusList.contains(MovieStatus.NOW_PLAYING)) {
+                        if (movieStatusList.value.contains(MovieStatus.NOW_PLAYING)) {
                             MovieStatusComp("Now Playing")
                         }
-                        if (movieStatusList.contains(MovieStatus.UPCOMING)) {
+                        if (movieStatusList.value.contains(MovieStatus.UPCOMING)) {
                             MovieStatusComp("Upcoming")
                         }
                     }
 
-                    FavouriteIcon(
+                    FavouriteIcon( // Favourite icon
                         currMovie = currMovie,
                         onFavouriteClick = onFavouriteClick,
                         modifier = Modifier
@@ -126,6 +129,10 @@ fun MoviesListUI(
     }
 }
 
+/**
+ * UI for displaying the movie status
+ * @param text Text to display
+ */
 @Composable
 fun MovieStatusComp(text: String) {
     Box(

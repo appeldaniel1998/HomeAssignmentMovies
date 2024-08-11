@@ -15,32 +15,27 @@ import com.example.home_assignment_movies.movies_feature.presentation.MoviesView
 import com.example.home_assignment_movies.movies_feature.presentation._movies_home.MoviesHomeUIEvent
 import com.example.home_assignment_movies.movies_feature.presentation.components.MoviesListUI
 
+/**
+ * Saved Movies UI Screen (persistent for the current session)
+ */
 @Composable
 fun SavedMoviesUIScreen(
     navController: NavController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
     viewModel: MoviesViewModel
 ) {
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) { // Set up of the scaffold
         scaffoldConfig.value = ScaffoldConfig(
             topAppBarTitle = "Saved Movies"
         )
     }
-    Box(modifier = Modifier.fillMaxSize()) {
-        MoviesListUI(
-            moviesList = viewModel.uiState.value.currentMovies.filter { it.isSaved },
-            onItemClick = {
-                viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
-            },
-            onFavouriteClick = {
-                viewModel.onEvent(MoviesHomeUIEvent.OnFavouriteClick(it))
-            }
-        )
-
-        if (viewModel.uiState.value.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Center)
-            )
+    MoviesListUI( // Display the saved movies
+        moviesList = viewModel.uiState.value.currentMovies.filter { it.isSaved },
+        onItemClick = {
+            viewModel.onEvent(MoviesHomeUIEvent.OnMovieClick(it.id, navController))
+        },
+        onFavouriteClick = {
+            viewModel.onEvent(MoviesHomeUIEvent.OnFavouriteClick(it))
         }
-    }
+    )
 }

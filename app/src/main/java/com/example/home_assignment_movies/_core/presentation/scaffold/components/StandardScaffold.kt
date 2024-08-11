@@ -31,6 +31,9 @@ import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldUI
 import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldViewModel
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 
+/**
+ * A standard scaffold that contains a top app bar, a bottom navigation bar, and a snackbar host.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardScaffold(
@@ -43,8 +46,8 @@ fun StandardScaffold(
     val uiState = viewModel.uiState.value
 
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        bottomBar = {
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }, // snackbar host
+        bottomBar = { // bottom navigation bar
             NavigationBar(modifier = Modifier.height(100.dp)) {
                 BottomNavigationDestinations.list.forEachIndexed { index, item ->
                     NavigationBarItem(
@@ -62,7 +65,7 @@ fun StandardScaffold(
                 }
             }
         },
-        topBar = {
+        topBar = { // top app bar
             TopAppBar(
                 title = {
                     Text(

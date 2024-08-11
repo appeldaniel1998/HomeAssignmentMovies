@@ -25,14 +25,16 @@ import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.home_assignment_movies.movies_feature.presentation.MoviesViewModel
 import com.example.home_assignment_movies.movies_feature.presentation.components.FavouriteIcon
 
+/**
+ * Represents the UI of the Movie Details screen.
+ */
 @Composable
 fun MovieDetailsUIScreen(
-    navController: NavController,
     scaffoldConfig: MutableState<ScaffoldConfig>,
     movieId: Int,
     viewModel: MoviesViewModel
 ) {
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) { // Set up of the scaffold configuration
         scaffoldConfig.value = ScaffoldConfig(
             topAppBarTitle = "Movie Details"
         )
@@ -40,26 +42,29 @@ fun MovieDetailsUIScreen(
 
     val currMovie = viewModel.uiState.value.currentMovies.find { it.id == movieId }
 
-    if (currMovie != null) {
+    if (currMovie != null) { // If the movie is found, display the details
         MovieDetailsUI(currMovie) {
             viewModel.onEvent(MovieDetailsUIEvent.OnFavouriteClick(it))
         }
     }
 }
 
+/**
+ * Represents the UI of the Movie Details screen.
+ */
 @Composable
 fun MovieDetailsUI(
     currMovie: Movie,
     onFavouriteClick: (Movie) -> Unit = {}
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) { // Display the movie details
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            AsyncImage(
+            AsyncImage( // Display the movie poster
                 model = currMovie.posterUrl,
                 contentDescription = "${currMovie.title} Poster",
                 modifier = Modifier.height(250.dp)
@@ -67,31 +72,31 @@ fun MovieDetailsUI(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
+            Text( // Display the movie title and release year
                 text = "${currMovie.title} (${currMovie.releaseDate.year})",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            Text(
+            Text( // Display the movie rating
                 text = "Rating: ${currMovie.voteAverage}",
                 fontSize = 18.sp
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
+            Text( // Display the movie overview title
                 text = "Overview",
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Start)
             )
-            Text(
+            Text( // Display the movie overview
                 text = currMovie.overview,
                 modifier = Modifier.align(Alignment.Start)
             )
         }
 
-        FavouriteIcon(
+        FavouriteIcon( // Display the favourite icon
             currMovie = currMovie,
             onFavouriteClick = onFavouriteClick,
             modifier = Modifier

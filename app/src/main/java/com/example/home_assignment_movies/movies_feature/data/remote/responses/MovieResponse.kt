@@ -5,6 +5,10 @@ import com.example.home_assignment_movies._core.util.toDate
 import com.example.home_assignment_movies.movies_feature.data.remote.RemoteConstants
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Represents a movie response from the API (and is a part of the MovieListResponse).
+ * This consists of the movie's details, only some of which hare needed for the app.
+ */
 data class MovieResponse(
     @SerializedName("adult") val adult: Boolean,
     @SerializedName("backdrop_path") val backdropPath: String,
@@ -21,6 +25,10 @@ data class MovieResponse(
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
 ) {
+
+    /**
+     * Converts the response to a [Movie] object, gathering only the necessary details.
+     */
     fun toMovie(): Movie {
         return Movie(
             id = id,

@@ -4,6 +4,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+/**
+ * Convert a string to a LocalDate. The string must be in the format "yyyy-MM-dd"
+ */
 fun String.toDate(): LocalDate {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd") // The date format
     return LocalDate.parse(this, formatter) // Parse the string to LocalDate

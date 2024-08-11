@@ -1,5 +1,6 @@
 package com.example.home_assignment_movies.movies_feature.presentation
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,21 +10,26 @@ import com.example.home_assignment_movies.movies_feature.presentation._movies_ho
 import com.example.home_assignment_movies.movies_feature.presentation.movie_details.MovieDetailsUIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Movies feature
+ * @param getMoviesUseCase Use case for getting movies - received from Hilt
+ */
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
-    val uiState = mutableStateOf(MoviesUIState())
-    private var debounceFlag = false
+    val uiState = mutableStateOf(MoviesUIState()) // Initial state
+    private var debounceFlag = false // Flag to prevent multiple loads
 
-    init {
+    init { // Load the first page of movies when the ViewModel is created
         loadNextMovies()
     }
 
+    /**
+     * Handle UI events of the MovieDetails screen
+     */
     fun onEvent(event: MovieDetailsUIEvent) {
         when (event) {
             is MovieDetailsUIEvent.OnFavouriteClick -> {
@@ -32,6 +38,9 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handle UI events of the MoviesHome screen
+     */
     fun onEvent(event: MoviesHomeUIEvent) {
         when (event) {
             is MoviesHomeUIEvent.OnMovieClick -> {
@@ -48,6 +57,9 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Toggle the favourite status of a movie
+     */
     private fun toggleFavourite(movieId: Int) {
         val updatedMoviesList = uiState.value.currentMovies.map { movie ->
             if (movie.id == movieId) {
@@ -60,6 +72,9 @@ class MoviesViewModel @Inject constructor(
         uiState.value = uiState.value.copy(currentMovies = updatedMoviesList)
     }
 
+    /**
+     * Load the next page of movies
+     */
     private fun loadNextMovies() {
         // Prevent multiple loads
         if (uiState.value.isLoading || debounceFlag) return // Return if already loading or if debounce flag is set
@@ -83,7 +98,7 @@ class MoviesViewModel @Inject constructor(
                 // Reset loading state after operation completes
                 uiState.value = uiState.value.copy(isLoading = false)
                 debounceFlag = false
-                println("Finished loading movies, current page: ${uiState.value.currentPage}")
+                Log.d("MoviesViewModel", "Finished loading movies, current page: ${uiState.value.currentPage}")
             }
         }
     }

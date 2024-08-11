@@ -3,6 +3,16 @@ package com.example.home_assignment_movies._core.domain.models
 import androidx.compose.runtime.Immutable
 import java.time.LocalDate
 
+/**
+ * A class representing a movie. It contains the following properties:
+ * - id: the unique identifier of the movie.
+ * - title: the title of the movie.
+ * - overview: a brief description of the movie.
+ * - posterUrl: the URL of the movie's poster.
+ * - releaseDate: the release date of the movie.
+ * - voteAverage: the average rating of the movie.
+ * - isSaved: a flag indicating whether the movie is saved as a favorite.
+ */
 @Immutable
 data class Movie(
     val id: Int,
