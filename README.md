@@ -18,5 +18,6 @@ Future features to implement:
 1. The saved movies currently are persistent to a single run of the application. Maybe a better but a more complex implementation would be to locally save this information to persistent storage for future use, or save it in a cloud storage of some sort
 2. Unit testing, of course, is necessary for production level applications
 3. The UI which I implemented is quite simplistic, I would spend time to make it more "visually attractive" if this application was to be released.
-4. The YouTube player currently does not allow for full screen viewing through the app (only through YouTube ). This, too, would be remedied if more time was spent on the project.  
- 
+4. The YouTube player currently does not allow for full screen viewing through the app (only through YouTube). This, in addition to the video controls always showing. These would be remedied if more time was spent on the project.  
+
+ If any questions arise to any part of this project, I would be more than willing to answer them!
