@@ -1,4 +1,4 @@
-package com.example.home_assignment_movies.ui.theme
+package com.example.home_assignment_movies._core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

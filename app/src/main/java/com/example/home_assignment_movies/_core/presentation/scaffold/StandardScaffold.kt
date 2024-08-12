@@ -1,4 +1,4 @@
-package com.example.home_assignment_movies._core.presentation.scaffold.components
+package com.example.home_assignment_movies._core.presentation.scaffold
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.home_assignment_movies._core.presentation.navigation.util.BottomNavigationDestinations
-import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldUIEvent
-import com.example.home_assignment_movies._core.presentation.scaffold.ScaffoldViewModel
 import com.example.home_assignment_movies._core.presentation.util.ScaffoldConfig
 import com.example.homeassignmentmovies.R
 
